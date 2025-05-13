@@ -16,7 +16,6 @@ public class WelcomeScreen
 
     private void ConfigureConsole()
     {
-        Console.ForegroundColor = ConsoleColor.Green;
         Console.CursorVisible = false;
     }
 
@@ -34,9 +33,9 @@ public class WelcomeScreen
 
     private void DisplayLoadingAnimation()
     {
-        string loadingText = "Inicializando sistema";
-        string startingText = "Sistema pronto!";
-        string dots = "...";
+        String loadingText = "Inicializando sistema";
+        String startingText = "Sistema pronto!";
+        String dots = "...";
         int animationDuration = 3;
         int delay = 500;
 
@@ -74,14 +73,14 @@ public class WelcomeScreen
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-        string[] messages = {
-        "Bem-vindo ao Green - As informações por trás dos números.",
+        String[] copyright = {
+        "Bem-vindo ao Green - As informações por trás da sorte.",
         "Versão 0.1 - Copyleft (\u0254) 2025 Francisco de Paula."
     };
 
-        foreach (var msg in messages)
+        foreach (String line in copyright)
         {
-            Console.WriteLine(msg);
+            Console.WriteLine(line);
             Thread.Sleep(1000);
         }
 
@@ -90,9 +89,6 @@ public class WelcomeScreen
 
     private void TransitionToMainMenu()
     {
-        //Console.ResetColor();
         Console.Clear();
-        // Chama o próximo componente (menu principal)
-        //new MainMenu().Show();
     }
 }

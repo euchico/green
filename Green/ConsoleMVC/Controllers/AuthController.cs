@@ -7,18 +7,21 @@ namespace Green.ConsoleMVC.Controllers;
 
 public class AuthController
 {
-    private readonly AuthService _auth;
-    private readonly Header _header;
+    private readonly HeaderService _header;
+    private readonly AuthScreen _authScreen;
     private readonly LoginScreen _loginScreen;
     private readonly RegisterScreen _registerScreen;
 
-    public AuthController(AuthService auth, Header header)
+    private readonly AuthService _auth;
+
+    public AuthController(AuthService auth, HeaderService header)
     {
-        _auth = auth;
-        
         _header = header;
+        _authScreen = new();
         _loginScreen = new();
         _registerScreen = new();
+
+        _auth = auth;
     }
 
     public void Start()
@@ -26,42 +29,44 @@ public class AuthController
         while (true)
         {
             _header.SetScreenTitle("Autenticação");
-            _header.ResetPath();
             _header.ResetHelpMessages();
-            _header.UpdatePath("Início");
-            _header.ShowHeader();
+            _header.NavigateTo("Início");
+            _header.Show();
 
-            Console.WriteLine("#1 - Entrar");
-            Console.WriteLine("#2 - Cadastrar\n");
-            Console.WriteLine("#0 - Sair\n");
-            Console.Write("Opção: ");
-
-            switch (Console.ReadLine())
+            String optionString = _authScreen.Show();            
+            if (int.TryParse(optionString, out int option))
             {
-                case "1":
-                    if (HandleLogin()) return;
-                    break;
-                case "2":
-                    HandleRegister();
-                    break;
-                
-                case "0":
-                    Environment.Exit(0);
-                    break;
-                default:
-                    ConsoleMessage.Error(Messages.InvalidOption);
-                    break;
+                switch (option)
+                {
+                    case 1:
+                        if (HandleLogin()) return;
+                        break;
+                    case 2:
+                        HandleRegister();
+                        break;
+
+                    case 0:
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        ConsoleMessage.Error(Messages.InvalidOption);
+                        break;
+                }
+            }
+            else
+            {
+                ConsoleMessage.Error(Messages.InvalidOption);
             }
         }
     }
 
     private bool HandleLogin()
     {
-        _header.UpdatePath("Entrar");
+        _header.NavigateTo("Entrar");
         _header.SetHelpMessages(
-            "Digite suas credenciais para acessar o sistema",
-            "Informe um campo vazio para retornar");
-        _header.ShowHeader();
+                "Digite suas credenciais para acessar o sistema",
+                "Informe um campo vazio para retornar");
+        _header.Show();
        
         var (user, pass) = _loginScreen.Show();
 
@@ -71,7 +76,7 @@ public class AuthController
             return true;
         }
         
-        if(string.IsNullOrWhiteSpace(user) || string.IsNullOrWhiteSpace(pass))
+        if(String.IsNullOrWhiteSpace(user) || String.IsNullOrWhiteSpace(pass))
         {
             return false;
         }
@@ -82,12 +87,12 @@ public class AuthController
 
     private void HandleRegister()
     {
-        _header.UpdatePath("Cadastro");
-        _header.ShowHeader();
+        _header.NavigateTo("Cadastro");
+        _header.Show();
         
         var (user, pass) = _registerScreen.Show();
 
-        if (string.IsNullOrWhiteSpace(user) || string.IsNullOrWhiteSpace(pass))
+        if (String.IsNullOrWhiteSpace(user) || String.IsNullOrWhiteSpace(pass))
         {
             ConsoleMessage.Error(Messages.EmptyCredentials);
         }
@@ -96,5 +101,7 @@ public class AuthController
             _auth.Register(user, pass);
             ConsoleMessage.Success(Messages.RegisterSuccess);
         }
+
+        _header.GoBack();
     }
 }

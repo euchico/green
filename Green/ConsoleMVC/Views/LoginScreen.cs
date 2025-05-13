@@ -1,13 +1,14 @@
 ﻿namespace Green.ConsoleMVC.Views;
 
-class LoginScreen
+public class LoginScreen
 {
-    public (string user, string pass) Show()
+    public (String user, String pass) Show()
     {
         Console.Write("Usuário: ");
-        var user = Console.ReadLine() ?? "";
+        String user = Console.ReadLine() ?? "";
+
         Console.Write("Senha: ");
-        var pass = Console.ReadLine() ?? "";
+        String pass = Console.ReadLine() ?? "";
         
         return (user, pass);
     }

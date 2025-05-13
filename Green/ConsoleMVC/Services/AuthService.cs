@@ -5,7 +5,7 @@ namespace Green.ConsoleMVC.Services;
 
 public class AuthService
 {
-    private const string _usersFile = @"..\..\..\Infrastructure\Auth\users.json";
+    private const String _usersFile = @"..\..\..\Infrastructure\Auth\users.json";
     private List<User> _users;
 
     public AuthService()
@@ -19,7 +19,7 @@ public class AuthService
         {
             if (File.Exists(_usersFile))
             {
-                var json = File.ReadAllText(_usersFile);
+                String json = File.ReadAllText(_usersFile);
                 _users = JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
             }
             else
@@ -39,9 +39,11 @@ public class AuthService
         try
         {
             // Garante que o diretório existe
-            var directory = Path.GetDirectoryName(_usersFile);
+            String directory = Path.GetDirectoryName(_usersFile);
             if (!Directory.Exists(directory))
+            {
                 Directory.CreateDirectory(directory!);
+            }
 
             // Serializa com formatação
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -53,14 +55,14 @@ public class AuthService
         }
     }
 
-    public bool Login(string username, string password)
+    public bool Login(String username, String password)
     {
         return _users.Any(u =>
-            u.Username.Equals(username, StringComparison.OrdinalIgnoreCase) &&
-            u.Password == password);
+                          u.Username.Equals(username, StringComparison.OrdinalIgnoreCase) &&
+                          u.Password == password);
     }
 
-    public void Register(string username, string password)
+    public void Register(String username, String password)
     {
         // Verifica se usuário já existe
         if (_users.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase)))
@@ -74,6 +76,6 @@ public class AuthService
             Password = password.Trim()
         });
 
-        SaveUsers(); // Persiste imediatamente
+        SaveUsers();
     }
 }

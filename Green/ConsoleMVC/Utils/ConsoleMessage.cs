@@ -2,24 +2,24 @@
 
 public static class ConsoleMessage
 {
-    public static void Error(string message)
+    public static void Error(String message)
     {
         PrintColored(message, ConsoleColor.Red);
     }
 
-    public static void Success(string message)
+    public static void Success(String message)
     {
         PrintColored(message, ConsoleColor.Blue);
     }
 
-    public static void Warning(string message)
+    public static void Warning(String message)
     {
         PrintColored(message, ConsoleColor.Yellow);
     }
 
-    private static void PrintColored(string message, ConsoleColor color)
+    private static void PrintColored(String message, ConsoleColor color)
     {
-        var originalColor = Console.ForegroundColor;
+        ConsoleColor originalColor = Console.ForegroundColor;
         Console.ForegroundColor = color;
         Console.WriteLine($"\n{message}");
         Console.ForegroundColor = originalColor;

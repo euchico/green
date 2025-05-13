@@ -2,27 +2,17 @@
 
 public class AuthScreen
 {
-    public void ShowMenu()
+    public string Show()
     {
-        Console.Clear();
-        Console.WriteLine("[ GREEN - LOTERIAS ]\n");
-        Console.WriteLine("1. Entrar");
-        Console.WriteLine("2. Cadastrar");
-        Console.WriteLine("3. Sair\n");
-    }
+        Console.WriteLine("#1 - Entrar");
+        Console.WriteLine("#2 - Cadastrar\n");
 
-    public (string user, string pass) GetCredentials()
-    {
-        Console.Write("Usuário: ");
-        var user = Console.ReadLine() ?? "";
-        Console.Write("Senha: ");
-        var pass = Console.ReadLine() ?? "";
-        return (user, pass);
-    }
+        Console.WriteLine("#0 - Sair\n");
 
-    public void ShowMessage(string message)
-    {
-        Console.WriteLine($"\n{message}");
-        Thread.Sleep(1500);
+        Console.Write("Opção: ");
+
+        String? optionString = Console.ReadLine();
+
+        return optionString ?? "";
     }
 }

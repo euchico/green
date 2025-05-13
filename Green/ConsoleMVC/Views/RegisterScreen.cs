@@ -2,12 +2,13 @@
 
 class RegisterScreen
 {
-    public (string user, string pass) Show()
+    public (String user, String pass) Show()
     {
-        Console.Write("Novo usuário: ");
-        var user = Console.ReadLine() ?? "";
-        Console.Write("Nova senha: ");
-        var pass = Console.ReadLine() ?? "";
+        Console.Write("Novo Usuário: ");
+        String user = Console.ReadLine() ?? "";
+
+        Console.Write("Nova Senha: ");
+        String pass = Console.ReadLine() ?? "";
         
         return (user, pass);
     }
