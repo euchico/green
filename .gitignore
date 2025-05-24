@@ -399,3 +399,35 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+
+## ==============================================
+## Personal Ignore
+## ==============================================
+
+# Build results
+bin/
+
+# Rider settings
+.idea/
+
+# Mac OS files
+.DS_Store
+
+# Windows thumbnail cache
+Thumbs.db
+
+# NuGet packages
+packages/
+
+# Publish output
+publish/
+out/
+
+# Test results
+TestResults/
+*.trx
+
+# Others
+*.cache
+*.bak
